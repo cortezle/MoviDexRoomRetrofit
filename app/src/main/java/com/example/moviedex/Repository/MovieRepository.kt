@@ -19,5 +19,10 @@ class MovieRepository(private val movieDao : MovieDao , private val api: MovieSe
     fun getAllfromRoomDB(): LiveData<List<Movie>> = movieDao.loadAllMovies()
 
     fun getMovieByName(name: String) = movieDao.searchMovieByName(name)
+
+    @WorkerThread
+    suspend fun delete(){
+        return movieDao.deleteallmovies();
+    }
 }
 

@@ -25,6 +25,11 @@ android {
 }
 
 dependencies {
+    def room="2.1.0-beta01"
+    def coroutines="1.2.0"
+    def archLifecycleVersion="2.2.0-alpha01"
+    def androidxArchVersion= "2.0.0"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -33,11 +38,30 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
     //Room Implementaciones
     implementation 'androidx.room:room-runtime:2.1.0-beta01'
     kapt 'androidx.room:room-compiler:2.1.0-beta01'
     implementation 'androidx.room:room-ktx:2.1.0-beta01'
     androidTestImplementation 'androidx.room:room-testing:2.1.0-beta01'
+
+    /*Lifecycle components*/
+    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
+    kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:$androidxArchVersion"
+
+    /*ViewModel kotlin support*/
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
+
+    /*Coroutines*/
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+
+    /*Design*/
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha05'
 
     /*Mushi*/
     implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
