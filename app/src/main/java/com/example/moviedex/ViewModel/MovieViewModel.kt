@@ -9,6 +9,7 @@ import com.example.moviedex.Database.Entity.Movie
 import com.example.moviedex.Database.MainDatabase
 import com.example.moviedex.Database.service.MovieService
 import com.example.moviedex.Repository.MovieRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MovieViewModel(private val app: Application) : AndroidViewModel(app)  {
@@ -35,14 +36,28 @@ class MovieViewModel(private val app: Application) : AndroidViewModel(app)  {
     private suspend fun delete() = repository.delete()
 
     //Obtener movie
-    fun retrieveMovie(movie: String)=viewModelScope.launch{
+    fun retrieveMovie(movie: String)=viewModelScope.launch(Dispatchers.IO){
 
         this@MovieViewModel.delete()
 
         val response = repository.retrieveMoviesByNameAsync(movie).await()
+
         if(response.isSuccessful) with(response){
-            this.body()?.forEach{
-                this@MovieViewModel.insert(it)
+            println(this.toString())
+            this.body()?.Search?.forEach{
+
+                val dataRes = repository.retrieveMovieAsync(it.imdbID).await()
+
+                if (dataRes.isSuccessful) with(dataRes){
+                    this@MovieViewModel.insert(this.body()!!)
+                }else with(dataRes){
+                    when(dataRes.code()){
+                        404->{
+                            Toast.makeText(app, "Fallo al vincular pelicula", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+
             }
         }else with(response){
             when(response.code()){
