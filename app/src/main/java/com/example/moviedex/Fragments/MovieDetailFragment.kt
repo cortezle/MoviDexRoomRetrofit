@@ -1,6 +1,5 @@
 package com.example.moviedex.Fragments
 
-import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -8,105 +7,65 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.moviedex.Adapter.MovieAdapter
 import com.example.moviedex.Database.Entity.Movie
-import com.example.moviedex.Interfaces.FragmentCommunication
 
 import com.example.moviedex.R
 import com.example.moviedex.ViewModel.MovieViewModel
-import kotlinx.android.synthetic.main.fragment_movie_list.*
+import kotlinx.android.synthetic.main.fragment_movie_detail.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [MovieListFragment.OnFragmentInteractionListener] interface
+ * [MovieDetailFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [MovieListFragment.newInstance] factory method to
+ * Use the [MovieDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class MovieListFragment : Fragment() {
+class MovieDetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var param1: Int? = null
     private var listener: OnFragmentInteractionListener? = null
 
-    private lateinit var activity: Activity
-    private lateinit var comunicacion: FragmentCommunication
-
-    private lateinit var moviesList: List<Movie>
-
-    private lateinit var viewAdapter: MovieAdapter
-    private lateinit var viewManager: RecyclerView.LayoutManager
-
+    private lateinit var movie: Movie
     private lateinit var viewModel: MovieViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
 
         viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
 
-        moviesList = listOf(Movie())
-        viewModel.getAll().observe(this, Observer {
-            moviesList = it
-            viewAdapter.setData(moviesList)
+        movie = Movie()
 
-            if(moviesList.size == 0){
-                result_msg.text = "No results found"
-            }else{
-                result_msg.text = ""
-            }
+        arguments?.let {
+            param1 = it.getInt(ARG_PARAM1)
+        }
 
-        })
     }
 
     override fun onStart() {
         super.onStart()
 
-        val click = View.OnClickListener{ v->
-            comunicacion.sendData(rv_moviesList.getChildAdapterPosition(v))
-        }
-
-        viewAdapter = MovieAdapter(moviesList, click)
-        viewManager = LinearLayoutManager(context)
-
-        initRecycler()
-
-        btn_search.setOnClickListener {
-            if (et_query.text.toString().isNotBlank() && et_query.text.toString().isNotEmpty()) {
-                viewModel.retrieveMovie(et_query.text.toString())
-            }else{
-                Toast.makeText(this.context, "Please type something before searching.", Toast.LENGTH_SHORT).show()
-            }
-        }
+        viewModel.getAll().observe(this, Observer {
+            movie = it[param1!!]
+            detail_title.text = movie.Title
+        })
 
     }
 
-    private fun initRecycler() {
-        with(rv_moviesList){
-            adapter = viewAdapter
-            layoutManager = viewManager
-        }
-    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_list, container, false)
+        return inflater.inflate(R.layout.fragment_movie_detail, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -116,14 +75,6 @@ class MovieListFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        if (context is Activity){
-            activity = context
-            if (activity is FragmentCommunication){
-                comunicacion = activity as FragmentCommunication
-            }
-        }
-
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
@@ -159,16 +110,15 @@ class MovieListFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MovieListFragment.
+         * @return A new instance of fragment MovieDetailFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                MovieListFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+            MovieDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
                 }
+            }
     }
 }

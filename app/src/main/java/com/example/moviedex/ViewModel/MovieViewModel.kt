@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 
 class MovieViewModel(private val app: Application) : AndroidViewModel(app)  {
     private val repository: MovieRepository
+    var found = false
 
     init {
 
@@ -43,7 +44,7 @@ class MovieViewModel(private val app: Application) : AndroidViewModel(app)  {
         val response = repository.retrieveMoviesByNameAsync(movie).await()
 
         if(response.isSuccessful) with(response){
-            println(this.toString())
+
             this.body()?.Search?.forEach{
 
                 val dataRes = repository.retrieveMovieAsync(it.imdbID).await()
@@ -53,16 +54,17 @@ class MovieViewModel(private val app: Application) : AndroidViewModel(app)  {
                 }else with(dataRes){
                     when(dataRes.code()){
                         404->{
-                            Toast.makeText(app, "Fallo al vincular pelicula", Toast.LENGTH_LONG).show()
+                            Toast.makeText(app, "Failed to link movie.", Toast.LENGTH_LONG).show()
                         }
                     }
                 }
 
             }
+
         }else with(response){
             when(response.code()){
                 404->{
-                    Toast.makeText(app, "No se encontro la pelicula", Toast.LENGTH_LONG).show()
+                    Toast.makeText(app, "Movies not found.", Toast.LENGTH_LONG).show()
                 }
             }
 
