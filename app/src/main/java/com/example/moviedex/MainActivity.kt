@@ -10,6 +10,7 @@ import com.example.moviedex.Fragments.MovieDetailFragment
 import com.example.moviedex.Fragments.MovieListFragment
 import com.example.moviedex.Interfaces.FragmentCommunication
 import com.example.moviedex.ViewModel.MovieViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity :
         AppCompatActivity(),
@@ -17,18 +18,38 @@ class MainActivity :
         MovieDetailFragment.OnFragmentInteractionListener,
         FragmentCommunication{
 
+    override fun removeDetail() {
+        if (detalle != null) {
+            supportFragmentManager
+                .beginTransaction()
+                .remove(detalle!!)
+                .commit()
+            detalle = null
+        }
+    }
+
+    private var detalle: MovieDetailFragment? = null
 
     override fun sendData(data: Int) {
 
-        var detalle = MovieDetailFragment()
+        detalle = MovieDetailFragment()
         var datos = Bundle()
         datos.putInt("param1", data)
-        detalle.arguments = datos
-        supportFragmentManager
+        detalle!!.arguments = datos
+
+        if(detail_container != null){
+            supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_container, detalle)
+                .replace(R.id.detail_container, detalle!!)
                 .addToBackStack("prev")
                 .commit()
+        }else {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, detalle!!)
+                .addToBackStack("prev")
+                .commit()
+        }
 
     }
 

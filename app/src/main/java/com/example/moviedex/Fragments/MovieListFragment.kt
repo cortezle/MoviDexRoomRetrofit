@@ -88,6 +88,7 @@ class MovieListFragment : Fragment() {
 
         btn_search.setOnClickListener {
             if (et_query.text.toString().isNotBlank() && et_query.text.toString().isNotEmpty()) {
+                comunicacion.removeDetail()
                 viewModel.retrieveMovie(et_query.text.toString())
             }else{
                 Toast.makeText(this.context, "Please type something before searching.", Toast.LENGTH_SHORT).show()

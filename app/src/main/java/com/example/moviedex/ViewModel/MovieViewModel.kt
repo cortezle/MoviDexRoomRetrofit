@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 
 class MovieViewModel(private val app: Application) : AndroidViewModel(app)  {
     private val repository: MovieRepository
-    var found = false
 
     init {
 
