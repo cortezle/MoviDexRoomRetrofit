@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.moviedex.Database.Entity.Movie
 
 import com.example.moviedex.R
@@ -54,6 +56,7 @@ class MovieDetailFragment : Fragment() {
 
         viewModel.getAll().observe(this, Observer {
             movie = it[param1!!]
+            Glide.with(this).load(movie?.Poster).into(detail_image)
             detail_title.text = movie.Title+"\n("+movie.Year+")"
             detail_released.text = "Release date: "+movie.Released
             detail_time.text = "Runtime: "+movie.Runtime

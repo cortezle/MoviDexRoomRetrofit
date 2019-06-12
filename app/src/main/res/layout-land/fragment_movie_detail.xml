@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:text="Released"
 
-        android:textSize="20sp"/>
+        android:textSize="10sp"/>
 
     <TextView
         android:layout_marginTop="25dp"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:text="Time"
 
-        android:textSize="20sp"/>
+        android:textSize="10sp"/>
 
     <TextView
         android:layout_marginTop="25dp"
@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:text="Genre"
 
-        android:textSize="20sp"/>
+        android:textSize="10sp"/>
 
     <TextView
         android:layout_marginTop="25dp"
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:text="Director"
 
-        android:textSize="20sp"/>
+        android:textSize="10sp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:text="Plot"
 
-            android:textSize="20sp"/>
+            android:textSize="10sp"/>
     </ScrollView>
 
 

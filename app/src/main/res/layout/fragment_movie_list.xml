@@ -1,36 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.MovieListFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimary">
+    <androidx.appcompat.widget.Toolbar
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@color/toolbarColor">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MovieDex"
+            android:textColor="@color/textColorPrimary"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#FFF">
-        <EditText
-            android:id="@+id/et_query"
+        android:background="@null">
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_weight="6"
+            android:hint="Search:"
             android:layout_height="wrap_content"
-            android:background="#FFF"
-            android:hint="Search Movies"
+            android:textColorHint="@color/colorWhite"
+            app:boxStrokeColor="@color/colorWhite"
+            android:theme="@style/LoginTextInputLayoutStyle"
+            style="@style/LoginTextInputLayoutStyle"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp">
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:id="@+id/et_query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/colorWhite"
+            android:textColor="@color/textColorPrimary"
+
+            android:textColorHint="@color/colorWhite"
             android:padding="10dp"
+            android:backgroundTint="@color/colorWhite"
             android:textSize="15sp"/>
-        <Button
+        </com.google.android.material.textfield.TextInputLayout>
+        <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_search"
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="wrap_content"
             android:text="Search"
-            android:textSize="15sp"/>
+            android:elevation="8dp"
+
+            android:textColor="@color/textColorPrimary"
+            android:background="@color/toolbarColor"
+            android:textSize="15sp"
+            />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="30dp"
         android:id="@+id/rv_moviesList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
