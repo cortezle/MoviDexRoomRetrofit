@@ -54,7 +54,12 @@ class MovieDetailFragment : Fragment() {
 
         viewModel.getAll().observe(this, Observer {
             movie = it[param1!!]
-            detail_title.text = movie.Title
+            detail_title.text = movie.Title+"\n("+movie.Year+")"
+            detail_released.text = "Release date: "+movie.Released
+            detail_time.text = "Runtime: "+movie.Runtime
+            detail_genre.text = "Genres: "+movie.Genre+"."
+            detail_director.text = "Director: "+movie.Director
+            detail_plot.text = movie.Plot
         })
 
     }
