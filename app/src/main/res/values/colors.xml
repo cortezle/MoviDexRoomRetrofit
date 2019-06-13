@@ -8,5 +8,6 @@
     <color name="textColorSecondary">#000000</color>
     <color name="toolbarColor">#383838</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="bg_red">#8e0000</color>
 
 </resources>

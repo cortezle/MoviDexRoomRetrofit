@@ -61,7 +61,7 @@ class MainActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if(savedInstanceState == null){
+        if(savedInstanceState == null || detail_container != null){
             var listado = MovieListFragment()
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, listado).commit()
         }

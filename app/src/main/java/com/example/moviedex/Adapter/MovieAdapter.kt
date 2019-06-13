@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.moviedex.Database.Entity.Movie
 import com.example.moviedex.Interfaces.RVClickListener
 import com.example.moviedex.R
@@ -32,7 +33,10 @@ class MovieAdapter(var items: List<Movie>, var listener: View.OnClickListener): 
         }
 
         fun bind(item: Movie) = with(itemView){
-            rv_tv_movieName.text = item.Title
+            rv_tv_movieName.text = item.Title+" \n("+item.Year+")"
+            if(list_image != null) {
+                Glide.with(this).load(item.Poster).into(list_image)
+            }
         }
 
     }

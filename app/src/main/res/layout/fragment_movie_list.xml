@@ -30,7 +30,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_weight="6"
-            android:hint="Search:"
+            android:hint="Movie Title"
             android:layout_height="wrap_content"
             android:textColorHint="@color/colorWhite"
             app:boxStrokeColor="@color/colorWhite"
@@ -51,6 +51,7 @@
             android:backgroundTint="@color/colorWhite"
             android:textSize="15sp"/>
         </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_search"
             android:layout_width="0dp"
@@ -60,9 +61,11 @@
             android:elevation="8dp"
 
             android:textColor="@color/textColorPrimary"
-            android:background="@color/toolbarColor"
+            android:background="@color/bg_red"
             android:textSize="15sp"
+            android:layout_marginRight="15dp"
             />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
